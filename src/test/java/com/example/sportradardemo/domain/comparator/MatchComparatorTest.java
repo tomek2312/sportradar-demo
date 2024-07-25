@@ -2,7 +2,6 @@ package com.example.sportradardemo.domain.comparator;
 
 import com.example.sportradardemo.domain.model.Match;
 import com.example.sportradardemo.domain.model.MatchScore;
-import com.example.sportradardemo.domain.repository.dto.MatchDTO;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MatchComparatorTest {
     private MatchComparator comparator;
