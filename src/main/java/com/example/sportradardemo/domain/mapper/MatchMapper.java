@@ -32,8 +32,14 @@ public class MatchMapper implements Mapper<Match, MatchDTO>{
                 domain.getHomeTeam().getScore(),
                 domain.getAwayTeam().getName(),
                 domain.getAwayTeam().getScore(),
-                domain.getStartTime().toString(),
-                domain.getEndTime().toString());
+                instantToString(domain.getStartTime()),
+                instantToString(domain.getEndTime()));
+    }
+
+    private String instantToString(Instant instant) {
+        return Optional.ofNullable(instant)
+                .map(Instant::toString)
+                .orElse(null);
     }
 
     private Instant parseInstant(String instant) {
