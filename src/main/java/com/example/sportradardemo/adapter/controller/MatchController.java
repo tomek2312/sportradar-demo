@@ -47,4 +47,9 @@ public class MatchController {
     List<Match> getScoreboard() {
         return matchService.getScoreboard();
     }
+
+    @GetMapping("/displayScoreboard")
+    String getScoreboardDisplayed() {
+        return String.join("\n", matchService.getScoreboard().stream().map(Match::toString).toList());
+    }
 }
