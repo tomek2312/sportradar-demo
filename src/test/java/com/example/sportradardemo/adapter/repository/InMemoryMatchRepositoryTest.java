@@ -30,16 +30,16 @@ class InMemoryMatchRepositoryTest {
     void shouldReturnMatchAfterCreatingIt() {
         val match = matchDTO();
         repository.createMatch(match);
-        assertEquals(match, repository.getMatchById(UUID.fromString(match.getId())).get());
+        assertEquals(match, repository.getMatchById(UUID.fromString(match.getId())).orElse(null));
     }
 
     @Test
     void shouldUpdateMatch() {
         val match = matchDTO();
         repository.createMatch(match);
-        val updatedMatch = new MatchDTO(match.getId(), 1, 1, Instant.now().toString(), null);
+        val updatedMatch = new MatchDTO(match.getId(), "home", 1, "away", 1, Instant.now().toString(), null);
         repository.updateMatch(updatedMatch);
-        assertEquals(updatedMatch, repository.getMatchById(UUID.fromString(match.getId())).get());
+        assertEquals(updatedMatch, repository.getMatchById(UUID.fromString(match.getId())).orElse(null));
     }
 
     @Test
@@ -60,7 +60,7 @@ class InMemoryMatchRepositoryTest {
     }
 
     private MatchDTO matchDTO(Instant startedAt, Instant finishedAt) {
-        return new MatchDTO(UUID.randomUUID().toString(), 0, 0,
+        return new MatchDTO(UUID.randomUUID().toString(), "home", 0, "away",0,
                 Optional.ofNullable(startedAt).map(Instant::toString).orElse(null),
                 Optional.ofNullable(finishedAt).map(Instant::toString).orElse(null));
     }

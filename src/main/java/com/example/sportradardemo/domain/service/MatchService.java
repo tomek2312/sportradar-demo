@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface MatchService {
-    Match createMatch();
+    Match createMatch(String homeTeamName, String awayTeamName);
 
     void homeTeamScored(UUID matchId);
 

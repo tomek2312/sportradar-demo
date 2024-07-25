@@ -21,8 +21,8 @@ public class MatchServiceImpl implements MatchService {
     private final Clock clock;
 
     @Override
-    public Match createMatch() {
-        val match = new Match();
+    public Match createMatch(String homeTeamName, String awayTeamName) {
+        val match = new Match(homeTeamName, awayTeamName);
         match.startMatch(clock);
         matchRepository.createMatch(matchMapper.mapToDTO(match));
 

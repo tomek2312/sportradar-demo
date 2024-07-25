@@ -13,7 +13,7 @@ class MatchTest {
 
     @BeforeEach
     void setUp() {
-        match = new Match();
+        match = new Match("home", "away");
     }
 
     @Test

@@ -12,27 +12,29 @@ import java.util.UUID;
 @Getter
 public class Match {
     private final UUID id;
-    private final MatchScore matchScore;
+    private final Team homeTeam;
+    private final Team awayTeam;
     private Instant startTime;
     private Instant endTime;
 
-    public Match() {
+    public Match(String homeTeamName, String awayTeamName) {
         this.id = UUID.randomUUID();
-        this.matchScore = new MatchScore();
+        this.homeTeam = new Team(homeTeamName);
+        this.awayTeam = new Team(awayTeamName);
     }
 
     public int getTotalGoals() {
-        return matchScore.getTotalGoals();
+        return homeTeam.getScore() + awayTeam.getScore();
     }
 
     public void homeTeamScored() {
         checkIfMatchIsOngoing();
-        matchScore.homeTeamScored();
+        homeTeam.scoreGoal();
     }
 
     public void awayTeamScored() {
         checkIfMatchIsOngoing();
-        matchScore.awayTeamScored();
+        awayTeam.scoreGoal();
     }
 
     public void startMatch(@NonNull Clock clock) {
@@ -46,6 +48,11 @@ public class Match {
     public void endMatch(@NonNull Clock clock) {
         checkIfMatchIsOngoing();
         endTime = clock.instant();
+    }
+
+    @Override
+    public String toString() {
+        return String.join(" - ", homeTeam.toString(), awayTeam.toString());
     }
 
     private boolean isMatchStarted() {
