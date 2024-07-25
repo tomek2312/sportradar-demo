@@ -7,29 +7,27 @@ import lombok.NonNull;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @NoArgsConstructor
-public class Match implements Comparable<Match> {
-    @Getter
+@Getter
+public class Match {
     private final UUID id = UUID.randomUUID();
-    private final AtomicInteger homeTeamResult = new AtomicInteger();
-    private final AtomicInteger awayTeamResult = new AtomicInteger();
+    private final MatchScore matchScore = new MatchScore();
     private Instant startTime;
     private Instant endTime;
 
     public int getTotalGoals() {
-        return homeTeamResult.get() + awayTeamResult.get();
+        return matchScore.getTotalGoals();
     }
 
-    public int homeTeamScored() {
+    public void homeTeamScored() {
         checkIfMatchIsOngoing();
-        return homeTeamResult.incrementAndGet();
+        matchScore.homeTeamScored();
     }
 
-    public int awayTeamScored() {
+    public void awayTeamScored() {
         checkIfMatchIsOngoing();
-        return awayTeamResult.incrementAndGet();
+        matchScore.awayTeamScored();
     }
 
     public void startMatch(@NonNull Clock clock) {
@@ -43,15 +41,6 @@ public class Match implements Comparable<Match> {
     public void endMatch(@NonNull Clock clock) {
         checkIfMatchIsOngoing();
         endTime = clock.instant();
-    }
-
-    @Override
-    public int compareTo(Match o) {
-        if (this.getTotalGoals() == o.getTotalGoals()) {
-            return this.startTime.compareTo(o.startTime);
-        }
-
-        return this.getTotalGoals() - o.getTotalGoals();
     }
 
     private boolean isMatchStarted() {
