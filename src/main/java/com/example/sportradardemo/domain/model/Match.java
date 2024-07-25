@@ -1,20 +1,25 @@
 package com.example.sportradardemo.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.time.Clock;
 import java.time.Instant;
 import java.util.UUID;
 
-@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class Match {
-    private final UUID id = UUID.randomUUID();
-    private final MatchScore matchScore = new MatchScore();
+    private final UUID id;
+    private final MatchScore matchScore;
     private Instant startTime;
     private Instant endTime;
+
+    public Match() {
+        this.id = UUID.randomUUID();
+        this.matchScore = new MatchScore();
+    }
 
     public int getTotalGoals() {
         return matchScore.getTotalGoals();
