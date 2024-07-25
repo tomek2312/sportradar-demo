@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Clock;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Service
@@ -33,7 +34,7 @@ public class MatchServiceImpl implements MatchService {
     public void homeTeamScored(UUID matchId) {
         val match = matchRepository.getMatchById(matchId)
                 .map(matchMapper::mapToDomain)
-                .orElseThrow(() -> new IllegalArgumentException("Match not found"));
+                .orElseThrow(() -> new NoSuchElementException("Match not found"));
 
         match.homeTeamScored();
         matchRepository.updateMatch(matchMapper.mapToDTO(match));
@@ -43,7 +44,7 @@ public class MatchServiceImpl implements MatchService {
     public void awayTeamScored(UUID matchId) {
         val match = matchRepository.getMatchById(matchId)
                 .map(matchMapper::mapToDomain)
-                .orElseThrow(() -> new IllegalArgumentException("Match not found"));
+                .orElseThrow(() -> new NoSuchElementException("Match not found"));
 
         match.awayTeamScored();
         matchRepository.updateMatch(matchMapper.mapToDTO(match));
@@ -53,7 +54,7 @@ public class MatchServiceImpl implements MatchService {
     public void finishMatch(UUID matchId) {
         val match = matchRepository.getMatchById(matchId)
                 .map(matchMapper::mapToDomain)
-                .orElseThrow(() -> new IllegalArgumentException("Match not found"));
+                .orElseThrow(() -> new NoSuchElementException("Match not found"));
 
         match.endMatch(clock);
         matchRepository.updateMatch(matchMapper.mapToDTO(match));
