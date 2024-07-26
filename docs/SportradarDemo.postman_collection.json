@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "8426ba8c-c0f3-442c-99e1-af0cc300856b",
+		"name": "SportradarDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33454337"
+	},
+	"item": [
+		{
+			"name": "Create match",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"homeTeamName\":\"Poland\",\n    \"awayTeamName\":\"England\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Scoreboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/scoreboard",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"scoreboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Scoreboard Formatted",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/displayScoreboard",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"displayScoreboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Home scored",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/{{match_id}}/homeTeamScored",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{match_id}}",
+						"homeTeamScored"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Away scored",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/{{match_id}}/awayTeamScored",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{match_id}}",
+						"awayTeamScored"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finish match",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/{{match_id}}/finishMatch",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"{{match_id}}",
+						"finishMatch"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080/matches",
+			"type": "string"
+		},
+		{
+			"key": "match_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
