@@ -1,5 +1,6 @@
 package com.example.sportradardemo.domain.service;
 
+import com.example.sportradardemo.TestClockUtils;
 import com.example.sportradardemo.domain.comparator.MatchComparator;
 import com.example.sportradardemo.domain.mapper.MatchMapper;
 import com.example.sportradardemo.domain.repository.MatchRepository;
@@ -39,7 +40,7 @@ class MatchServiceImplTest {
     private MatchComparator matchComparator = new MatchComparator();
 
     @Spy
-    private Clock clock = Clock.systemDefaultZone();
+    private Clock clock = TestClockUtils.testClock;
 
     @InjectMocks
     private MatchServiceImpl matchService;

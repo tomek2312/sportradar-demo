@@ -3,12 +3,11 @@ package com.example.sportradardemo.domain.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.Clock;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static com.example.sportradardemo.TestClockUtils.testClock;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MatchTest {
-    private static final Clock clock = Clock.systemUTC();
     private Match match;
 
     @BeforeEach
@@ -18,7 +17,7 @@ class MatchTest {
 
     @Test
     void scoreShouldBeEmptyAfterStarting() {
-        match.startMatch(clock);
+        match.startMatch(testClock);
         assertEquals(0, match.getTotalGoals());
     }
 
@@ -30,28 +29,28 @@ class MatchTest {
 
     @Test
     void shouldThrowExceptionWhenScoringAfterMatchEnds() {
-        match.startMatch(clock);
-        match.endMatch(clock);
+        match.startMatch(testClock);
+        match.endMatch(testClock);
         assertThrows(IllegalStateException.class, () -> match.homeTeamScored());
         assertThrows(IllegalStateException.class, () -> match.awayTeamScored());
     }
 
     @Test
     void shouldUpdateScoreAfterHomeTeamScores() {
-        match.startMatch(clock);
+        match.startMatch(testClock);
         match.homeTeamScored();
         assertEquals(1, match.getTotalGoals());
     }
 
     @Test
     void shouldUpdateScoreAfterAwayTeamScores() {
-        match.startMatch(clock);
+        match.startMatch(testClock);
         match.awayTeamScored();
         assertEquals(1, match.getTotalGoals());
     }
 
     @Test
     void shouldThrowExceptionWhenEndingMatchBeforeStarting() {
-        assertThrows(IllegalStateException.class, () -> match.endMatch(clock));
+        assertThrows(IllegalStateException.class, () -> match.endMatch(testClock));
     }
 }
